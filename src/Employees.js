@@ -3,7 +3,7 @@ import femaleProfile from "./img/femaleProfile.jpg";
 import maleProfile from "./img/maleProfile.jpg";
 
 const Employees = () => {
-  const [selectedTeam, setTeam] =  useState("TeamB");
+  const [selectedTeam, setTeam] = useState("TeamB");
 
   const [employees, setEmployees] = useState([
     {
@@ -97,39 +97,55 @@ const Employees = () => {
   }
 
   function handleEmployeeCardClick(event) {
-    const transformedEmployees = employees.map((employee) => employee.id === event.currentTarget)
+    const transformedEmployees = employees.map((employee) =>
+      employee.id === parseInt(event.currentTarget.id)
+        ? employee.teamName === selectedTeam
+          ? { ...employee, teamName: "" }
+          : { ...employee, teamName: selectedTeam }
+        : employee
+    );
+    setEmployees(transformedEmployees);
   }
 
   return (
-    <main className = "container">
-      <div className = "row justify-content mt-3 mb-3">
-        <div className = "col-b">
-          <select className = "form-select form-select-lg" value = {selectedTeam} onChange = {handleTeamSelectionChange}>
-            <option value = "TeamA">TeamA</option>
-            <option value = "TeamB">TeamB</option>
-            <option value = "TeamC">TeamC</option>
-            <option value = "TeamD">TeamD</option>
+    <main className="container">
+      <div className="row justify-content mt-3 mb-3">
+        <div className="col-b">
+          <select
+            className="form-select form-select-lg"
+            value={selectedTeam}
+            onChange={handleTeamSelectionChange}
+          >
+            <option value="TeamA">TeamA</option>
+            <option value="TeamB">TeamB</option>
+            <option value="TeamC">TeamC</option>
+            <option value="TeamD">TeamD</option>
           </select>
         </div>
       </div>
-      <div className = "row justify-content mt-3 mb-3">
-        <div className = "col-b">
-          <div className = "card-collection">
-            {
-              employees.map((employee) => (
-                <div id = {employee.id} className = "card m-2" style={{cursor: "pointer"}} onClick = {handleEmployeeCardClick}>
-                  <img 
-                    src = {(employee.gender === "male") ? maleProfile : femaleProfile} 
-                    alt = "Profile" 
-                    className = "card-img-top"
-                  ></img>
-                  <div className = "card-body">
-                    <h5 className = "card-title">Full Name: {employee.fullName}</h5>
-                    <p className = "card-text">Designation: <b>{employee.designation}</b></p>
-                  </div>
+      <div className="row justify-content mt-3 mb-3">
+        <div className="col-b">
+          <div className="card-collection">
+            {employees.map((employee) => (
+              <div
+                id={employee.id}
+              className={(employee.teamName === selectedTeam)? "card m-2 standout" : "card m-2"}
+                style={{ cursor: "pointer" }}
+                onClick={handleEmployeeCardClick}
+              >
+                <img
+                  src={employee.gender === "male" ? maleProfile : femaleProfile}
+                  alt="Profile"
+                  className="card-img-top"
+                ></img>
+                <div className="card-body">
+                  <h5 className="card-title">Full Name: {employee.fullName}</h5>
+                  <p className="card-text">
+                    Designation: <b>{employee.designation}</b>
+                  </p>
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
         </div>
       </div>
