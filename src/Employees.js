@@ -93,8 +93,11 @@ const Employees = () => {
   ]);
 
   function handleTeamSelectionChange(event) {
-    console.log(event.target.value);
     setTeam(event.target.value);
+  }
+
+  function handleEmployeeCardClick(event) {
+    const transformedEmployees = employees.map((employee) => employee.id === event.currentTarget)
   }
 
   return (
@@ -114,7 +117,7 @@ const Employees = () => {
           <div className = "card-collection">
             {
               employees.map((employee) => (
-                <div id = {employee.id} className = "card m-2" style={{cursor: "pointer"}}>
+                <div id = {employee.id} className = "card m-2" style={{cursor: "pointer"}} onClick = {handleEmployeeCardClick}>
                   <img 
                     src = {(employee.gender === "male") ? maleProfile : femaleProfile} 
                     alt = "Profile" 
