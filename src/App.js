@@ -19,7 +19,7 @@ function App() {
   );
 
   const [employees, setEmployees] = useState(
-    JSON.parse(localStorage.setItem("employeeList")) || [
+    JSON.parse(localStorage.getItem("employeeList")) || [
       {
         id: 1,
         fullName: "Bob Jones",
