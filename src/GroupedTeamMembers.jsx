@@ -1,4 +1,6 @@
-const GroupedTeamMembers = () => {
+import { useState } from "react";
+
+const GroupedTeamMembers = ({employees, selectedTeam, setTeam}) => {
   return (
     <main className="container">
       <div className="row">
